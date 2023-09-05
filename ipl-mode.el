@@ -119,19 +119,19 @@
           `(("//.+" . font-lock-comment-face)
             ("/\\*.+\\*/" . font-lock-comment-face)
             ("@+[A-Za-z.]+:?" . font-lock-preprocessor-face)
-            ("function +\\([a-zA-Z0-9]+\\)" . ((1 font-lock-function-name-face)))
-            ("\\(:\\)\\s-*\\([A-Za-z0-9.]+\\)"
+            ("function\\s-+\\([a-zA-Z0-9]+\\)" . ((1 font-lock-function-name-face)))
+            ("\\(:\\)\\s-*\\([A-Za-z0-9.[:blank:]]+\\)"
              . ((1 font-lock-builtin-face)
                 ;; (2 font-lock-type-face)
                 ;; conflicts with case syntax :/
                 ;; we need to use a function to do this properly,
                 ;; as emacs doesn't support look-behind
                 ))
-            ("\\(:[*?]\\)\\s-*\\([A-Za-z0-9.]+\\)"
+            ("\\(:[*?]\\)\\s-*\\([A-Za-z0-9.[:blank:]]+\\)"
              . ((1 font-lock-builtin-face)
                 (2 font-lock-type-face)
                 ))
-            ("\"[0-9]+\"\\s-*\\(:\\) *\\([A-Za-z0-9.]+\\)"
+            ("\"[0-9]+\"\\s-*\\(:\\) *\\([A-Za-z0-9.[:blank:]]+\\)"
              . ((1 font-lock-builtin-face)
                 (2 font-lock-type-face)
                 ))
