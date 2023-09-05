@@ -136,6 +136,7 @@
                 (2 font-lock-type-face)
                 ))
             ("\"[^\"]+\"" . font-lock-string-face)
+            ("'[^']+'" . font-lock-string-face)
             ("[^A-Za-z0-9.]\\([A-Z][A-Za-z0-9.]+\\)\\." . ((1 font-lock-reference-face)))
             (,(regexp-opt ipl-keywords 'words) . font-lock-keyword-face)
             (,(regexp-opt ipl-builtins ) . font-lock-builtin-face)))
