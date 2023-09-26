@@ -119,6 +119,8 @@
           `(("//.+" . font-lock-comment-face)
             ("/\\*.+\\*/" . font-lock-comment-face)
             ("@+[A-Za-z.]+:?" . font-lock-preprocessor-face)
+            ("\\(@description:\\)\\(.+\\)" . ((1 font-lock-preprocessor-face)
+                                              (2 font-lock-string-face)))
             ("function\\s-+\\([a-zA-Z0-9]+\\)" . ((1 font-lock-function-name-face)))
             ("\\(:\\)\\s-*\\([A-Za-z0-9.[:blank:]]+\\)"
              . ((1 font-lock-builtin-face)
