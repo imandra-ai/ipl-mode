@@ -109,6 +109,45 @@
     "when"
     "with"))
 
+(defun ipl--block-indentation ()
+  (let ((curline (line-number-at-pos)))
+    (save-excursion
+      (condition-case nil
+          (progn
+            (backward-up-list)
+            (unless (= curline (line-number-at-pos))
+              (current-indentation)))
+        (scan-error nil)))))
+
+(defun ipl--previous-indentation ()
+  (save-excursion
+    (forward-line -1)
+    (let (finish)
+      (while (not finish)
+        (cond ((bobp) (setq finish t))
+              (t
+               (let ((line (buffer-substring-no-properties
+                            (line-beginning-position) (line-end-position))))
+                 (if (not (string-match-p "\\`\\s-*\\'" line))
+                     (setq finish t)
+                   (forward-line -1))))))
+      (current-indentation))))
+
+(defun ipl-indent-line ()
+  (interactive)
+  (let* ((curpoint (point))
+         (pos (- (point-max) curpoint)))
+    (back-to-indentation)
+    (let ((block-indentation (ipl--block-indentation)))
+      (delete-region (line-beginning-position) (point))
+      (if block-indentation
+          (if (looking-at "[]}]")
+              (indent-to block-indentation)
+            (indent-to (+ block-indentation standard-indent)))
+        (indent-to (ipl--previous-indentation)))
+      (when (> (- (point-max) pos) (point))
+        (goto-char (- (point-max) pos))))))
+
 (define-derived-mode ipl-mode
   text-mode "IPL"
   "Major mode for Imandra Protocol Language."
@@ -142,6 +181,8 @@
             ("[^A-Za-z0-9.]\\([A-Z][A-Za-z0-9.]+\\)\\." . ((1 font-lock-reference-face)))
             (,(regexp-opt ipl-keywords 'words) . font-lock-keyword-face)
             (,(regexp-opt ipl-builtins ) . font-lock-builtin-face)))
-    (setq font-lock-defaults '(ipl-highlights))))
+    (setq font-lock-defaults '(ipl-highlights))
+    (set (make-local-variable 'standard-indent) 2)
+    (set (make-local-variable 'indent-line-function) #'ipl-indent-line)))
 
 (provide 'ipl-mode)
