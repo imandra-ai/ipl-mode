@@ -178,7 +178,7 @@
                 ))
             ("\"[^\"]+\"" . font-lock-string-face)
             ("'[^']+'" . font-lock-string-face)
-            ("[^A-Za-z0-9.]\\([A-Z][A-Za-z0-9.]+\\)\\." . ((1 font-lock-reference-face)))
+            ("[^A-Za-z0-9.]\\([A-Z][A-Za-z0-9.]+\\)\\." . ((1 font-lock-constant-face)))
             (,(regexp-opt ipl-keywords 'words) . font-lock-keyword-face)
             (,(regexp-opt ipl-builtins ) . font-lock-builtin-face)))
     (setq font-lock-defaults '(ipl-highlights))
