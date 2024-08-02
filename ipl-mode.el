@@ -155,8 +155,8 @@
     (setq comment-start "//")
     (setq comment-start-skip "//\\s *")
     (setq ipl-highlights
-          `(("//.+" . font-lock-comment-face)
-            ("/\\*.+\\*/" . font-lock-comment-face)
+          `(("//.*" . font-lock-comment-face)
+            ("/\\*.*\\*/" . font-lock-comment-face)
             ("@+[A-Za-z.]+:?" . font-lock-preprocessor-face)
             ("\\(@description:\\)\\(.+\\)" . ((1 font-lock-preprocessor-face)
                                               (2 font-lock-string-face)))
