@@ -182,7 +182,7 @@
             (,(regexp-opt ipl-keywords 'words) . font-lock-keyword-face)
             (,(regexp-opt ipl-builtins ) . font-lock-builtin-face)))
     (setq font-lock-defaults '(ipl-highlights))
-    (set (make-local-variable 'standard-indent) 2)
+    (set (make-local-variable 'standard-indent) 4)
     (set (make-local-variable 'indent-line-function) #'ipl-indent-line)))
 
 (provide 'ipl-mode)
